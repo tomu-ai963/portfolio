@@ -17,446 +17,72 @@
     --text-dim: #7a7060;
     --border: rgba(201,168,76,0.15);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    line-height: 1.8;
-    cursor: none;
-  }
-
-  /* カスタムカーソル */
-  .cursor {
-    position: fixed;
-    width: 8px; height: 8px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s ease;
-    transform: translate(-50%, -50%);
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 32px; height: 32px;
-    border: 1px solid rgba(201,168,76,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.3s ease, width 0.2s, height 0.2s;
-    transform: translate(-50%, -50%);
-  }
-  a:hover ~ .cursor-ring, button:hover ~ .cursor-ring { width: 48px; height: 48px; }
-
-  /* ノイズオーバーレイ */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
-
-  /* ナビ */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 24px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s, background 0.3s;
-  }
-  nav.scrolled {
-    background: rgba(8,8,8,0.92);
-    backdrop-filter: blur(12px);
-    border-color: var(--border);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 3px;
-    text-decoration: none;
-  }
-  .nav-links {
-    display: flex;
-    gap: 40px;
-    list-style: none;
-  }
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    text-decoration: none;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    cursor: none;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; line-height: 1.8; cursor: none; }
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(201,168,76,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.3s ease, width 0.2s, height 0.2s; transform: translate(-50%, -50%); }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 60px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  nav.scrolled { background: rgba(8,8,8,0.92); backdrop-filter: blur(12px); border-color: var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--gold); letter-spacing: 3px; text-decoration: none; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; cursor: none; }
   .nav-links a:hover { color: var(--gold); }
-
-  /* ヒーロー */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 0 60px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* 背景幾何学 */
-  .geo-bg {
-    position: absolute;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 700px;
-    height: 700px;
-    opacity: 0.06;
-    animation: slowRotate 60s linear infinite;
-  }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 60px; position: relative; overflow: hidden; }
+  .geo-bg { position: absolute; right: -100px; top: 50%; transform: translateY(-50%); width: 700px; height: 700px; opacity: 0.06; animation: slowRotate 60s linear infinite; }
   @keyframes slowRotate { to { transform: translateY(-50%) rotate(360deg); } }
-
-  .hero-content {
-    max-width: 700px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(64px, 8vw, 110px);
-    font-weight: 300;
-    line-height: 0.95;
-    color: var(--gold);
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-  .hero-name span {
-    color: var(--gold);
-    display: block;
-  }
-
-  .hero-desc {
-    font-size: 15px;
-    color: var(--text-dim);
-    max-width: 440px;
-    line-height: 2;
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
-
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 32px;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    text-decoration: none;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: background 0.2s, color 0.2s;
-    cursor: none;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
+  .hero-content { max-width: 700px; position: relative; z-index: 2; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 8vw, 110px); font-weight: 300; line-height: 0.95; color: var(--gold); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-name span { color: var(--gold); display: block; }
+  .hero-desc { font-size: 15px; color: var(--text-dim); max-width: 440px; line-height: 2; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 12px; padding: 14px 32px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; transition: background 0.2s, color 0.2s; cursor: none; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
   .hero-cta:hover { background: var(--gold); color: var(--bg); }
   .hero-cta::after { content: '→'; }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 40px;
-    left: 60px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeUp 0.8s 1.2s forwards;
-  }
-  .scroll-line {
-    width: 40px;
-    height: 1px;
-    background: var(--gold-dim);
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0%, 100% { width: 40px; opacity: 1; }
-    50% { width: 70px; opacity: 0.5; }
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* セクション共通 */
-  section {
-    padding: 120px 60px;
-    border-top: 1px solid var(--border);
-  }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 60px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    max-width: 80px;
-    height: 1px;
-    background: var(--gold-dim);
-  }
-
-  /* Skills */
+  .hero-scroll { position: absolute; bottom: 40px; left: 60px; display: flex; align-items: center; gap: 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 3px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .scroll-line { width: 40px; height: 1px; background: var(--gold-dim); animation: scrollLine 2s ease-in-out infinite; }
+  @keyframes scrollLine { 0%, 100% { width: 40px; opacity: 1; } 50% { width: 70px; opacity: 0.5; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  section { padding: 120px 60px; border-top: 1px solid var(--border); }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 60px; display: flex; align-items: center; gap: 20px; }
+  .section-label::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--gold-dim); }
   #skills { background: var(--bg2); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .skill-item {
-    background: var(--bg2);
-    padding: 32px 28px;
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .skill-item::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--gold);
-    transition: width 0.3s;
-  }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .skill-item { background: var(--bg2); padding: 32px 28px; transition: background 0.2s; position: relative; overflow: hidden; }
+  .skill-item::before { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
   .skill-item:hover { background: var(--bg3); }
   .skill-item:hover::before { width: 100%; }
-
-  .skill-name {
-    font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: 1px;
-  }
-  .skill-level {
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-  }
-
-  /* Works */
+  .skill-name { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--text); margin-bottom: 6px; letter-spacing: 1px; }
+  .skill-level { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
   #works { background: var(--bg); }
-
-  .works-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .work-card {
-    background: var(--bg);
-    padding: 40px 36px;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.2s;
-    cursor: none;
-  }
-  .work-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 2px; height: 0;
-    background: var(--gold);
-    transition: height 0.3s;
-  }
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+  .work-card { background: var(--bg); padding: 40px 36px; position: relative; overflow: hidden; transition: background 0.2s; cursor: none; }
+  .work-card::after { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--gold); transition: height 0.3s; }
   .work-card:hover { background: var(--bg3); }
   .work-card:hover::after { height: 100%; }
-
-  .work-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 20px;
-    letter-spacing: -2px;
-  }
-  .work-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
-  }
-  .work-desc {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.9;
-    margin-bottom: 20px;
-  }
-  .work-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .work-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--gold-dim);
-    border: 1px solid rgba(201,168,76,0.2);
-    padding: 4px 10px;
-    letter-spacing: 1px;
-  }
-
-  /* About */
+  .work-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--border); line-height: 1; margin-bottom: 20px; letter-spacing: -2px; }
+  .work-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--text); margin-bottom: 12px; letter-spacing: 0.5px; }
+  .work-desc { font-size: 13px; color: var(--text-dim); line-height: 1.9; margin-bottom: 20px; }
+  .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .work-tag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold-dim); border: 1px solid rgba(201,168,76,0.2); padding: 4px 10px; letter-spacing: 1px; }
   #about { background: var(--bg2); }
-
-  .about-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .about-text {
-    font-size: 15px;
-    color: var(--text-dim);
-    line-height: 2.2;
-  }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-text { font-size: 15px; color: var(--text-dim); line-height: 2.2; }
   .about-text p { margin-bottom: 20px; }
   .about-text strong { color: var(--gold); font-weight: 400; }
-
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    align-self: start;
-  }
-  .stat-item {
-    background: var(--bg2);
-    padding: 28px 24px;
-  }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    font-weight: 300;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  /* Contact */
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); align-self: start; }
+  .stat-item { background: var(--bg2); padding: 28px 24px; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
   #contact { background: var(--bg); text-align: center; }
-
-  .contact-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(40px, 6vw, 72px);
-    font-weight: 300;
-    color: #fff;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    letter-spacing: -1px;
-  }
+  .contact-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 300; color: #fff; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
   .contact-heading span { color: var(--gold); }
-
-  .contact-sub {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 48px;
-    letter-spacing: 1px;
-  }
-
-  .contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 40px;
-    background: var(--gold);
-    color: var(--bg);
-    text-decoration: none;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: background 0.2s, transform 0.2s;
-    cursor: none;
-  }
+  .contact-sub { font-size: 14px; color: var(--text-dim); margin-bottom: 48px; letter-spacing: 1px; }
+  .contact-link { display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; background: var(--gold); color: var(--bg); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; transition: background 0.2s, transform 0.2s; cursor: none; }
   .contact-link:hover { background: var(--gold-bright); transform: translateY(-2px); }
-
-  /* フッター */
-  footer {
-    padding: 32px 60px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  footer span {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-  }
-
-  /* レスポンシブ */
+  footer { padding: 32px 60px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  footer span { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 2px; }
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
     .nav-links { display: none; }
@@ -468,10 +94,8 @@
 </style>
 </head>
 <body>
-
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 <nav id="nav">
   <a href="#hero" class="nav-logo">とむ</a>
   <ul class="nav-links">
@@ -481,8 +105,6 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-
-<!-- Hero -->
 <section id="hero">
   <svg class="geo-bg" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="350" cy="350" r="320" stroke="#C9A84C" stroke-width="1"/>
@@ -499,172 +121,96 @@
     <line x1="460" y1="90" x2="240" y2="610" stroke="#C9A84C" stroke-width="0.4"/>
     <polygon points="350,50 600,200 600,500 350,650 100,500 100,200" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.5"/>
   </svg>
-
   <div class="hero-content">
     <p class="hero-tag">— Freelance AI Engineer</p>
-    <h1 class="hero-name">
-      とむ
-      <span>AI × Code</span>
-    </h1>
-    <p class="hero-desc">
-      AIをツールではなくインフラとして使う。<br>
-      独学で積み上げた自動化・Bot・AIアプリの設計と実装。
-    </p>
+    <h1 class="hero-name">とむ<span>AI × Code</span></h1>
+    <p class="hero-desc">AIをツールではなくインフラとして使う。<br>独学で積み上げた自動化・Bot・AIアプリの設計と実装。</p>
     <a href="#works" class="hero-cta">View Works</a>
   </div>
-
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    Scroll
-  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
 </section>
-
-<!-- Skills -->
 <section id="skills">
   <p class="section-label">Skills</p>
   <div class="skills-grid">
-    <div class="skill-item">
-      <p class="skill-name">Python</p>
-      <p class="skill-level">Bot / API / Automation</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">OpenAI API</p>
-      <p class="skill-level">GPT Integration</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">Dify</p>
-      <p class="skill-level">AI App Builder</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">GitHub</p>
-      <p class="skill-level">Version Control / Pages</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">SVG / HTML / CSS</p>
-      <p class="skill-level">Frontend / Design</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">Go</p>
-      <p class="skill-level">Server / Webhook</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">Termux</p>
-      <p class="skill-level">Android Dev Environment</p>
-    </div>
-    <div class="skill-item">
-      <p class="skill-name">Cloudflare Tunnel</p>
-      <p class="skill-level">Networking / Exposure</p>
-    </div>
+    <div class="skill-item"><p class="skill-name">Python</p><p class="skill-level">Bot / API / Automation</p></div>
+    <div class="skill-item"><p class="skill-name">OpenAI API</p><p class="skill-level">GPT Integration</p></div>
+    <div class="skill-item"><p class="skill-name">Dify</p><p class="skill-level">AI App Builder</p></div>
+    <div class="skill-item"><p class="skill-name">GitHub</p><p class="skill-level">Version Control / Pages</p></div>
+    <div class="skill-item"><p class="skill-name">SVG / HTML / CSS</p><p class="skill-level">Frontend / Design</p></div>
+    <div class="skill-item"><p class="skill-name">Go</p><p class="skill-level">Server / Webhook</p></div>
+    <div class="skill-item"><p class="skill-name">Termux</p><p class="skill-level">Android Dev Environment</p></div>
+    <div class="skill-item"><p class="skill-name">Flask</p><p class="skill-level">Web App / API Server</p></div>
   </div>
 </section>
-
-<!-- Works -->
 <section id="works">
   <p class="section-label">Works</p>
   <div class="works-grid">
     <div class="work-card">
       <p class="work-num">01</p>
       <h3 class="work-title">Web Site Development</h3>
-      <p class="work-desc">
-        GitHub Pagesを活用したWebサイト構築。DifyチャットボットをAPIで統合し、動的なAI連携を実装。
-      </p>
-      <div class="work-tags">
-        <span class="work-tag">HTML/CSS</span>
-        <span class="work-tag">Dify</span>
-        <span class="work-tag">GitHub Pages</span>
-      </div>
+      <p class="work-desc">GitHub Pagesを活用したWebサイト構築。DifyチャットボットをAPIで統合し、動的なAI連携を実装。</p>
+      <div class="work-tags"><span class="work-tag">HTML/CSS</span><span class="work-tag">Dify</span><span class="work-tag">GitHub Pages</span></div>
     </div>
     <div class="work-card">
       <p class="work-num">02</p>
       <h3 class="work-title">API Monitoring Bot</h3>
-      <p class="work-desc">
-        外部APIを監視し、新着データを自動取得・AI要約・翻訳・通知まで一貫処理するPython Bot。
-      </p>
-      <div class="work-tags">
-        <span class="work-tag">Python</span>
-        <span class="work-tag">OpenAI API</span>
-        <span class="work-tag">Termux</span>
-      </div>
+      <p class="work-desc">外部APIを監視し、新着データを自動取得・AI要約・翻訳・通知まで一貫処理するPython Bot。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">OpenAI API</span><span class="work-tag">Termux</span></div>
     </div>
     <div class="work-card">
       <p class="work-num">03</p>
       <h3 class="work-title">SVG Auto Generator</h3>
-      <p class="work-desc">
-        AIと協働し、幾何学図形・神聖幾何学・放射構造のSVGを自動生成するシステム。タスクキュー型で管理。
-      </p>
-      <div class="work-tags">
-        <span class="work-tag">Python</span>
-        <span class="work-tag">SVG</span>
-        <span class="work-tag">AI Agent</span>
-      </div>
+      <p class="work-desc">AIと協働し、幾何学図形・神聖幾何学・放射構造のSVGを自動生成するシステム。タスクキュー型で管理。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">SVG</span><span class="work-tag">AI Agent</span></div>
     </div>
     <div class="work-card">
       <p class="work-num">04</p>
       <h3 class="work-title">AI Agent System</h3>
-      <p class="work-desc">
-        タスク受付・実行・自動処理を行う疑似エージェント構造をPythonで実装。キュー投入による非同期処理。
-      </p>
-      <div class="work-tags">
-        <span class="work-tag">Python</span>
-        <span class="work-tag">agentd.py</span>
-        <span class="work-tag">Automation</span>
-      </div>
+      <p class="work-desc">タスク受付・実行・自動処理を行う疑似エージェント構造をPythonで実装。キュー投入による非同期処理。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">agentd.py</span><span class="work-tag">Automation</span></div>
+    </div>
+    <div class="work-card">
+      <p class="work-num">05</p>
+      <h3 class="work-title">AI Career Coach</h3>
+      <p class="work-desc">年収600万フリーランスAIエンジニアを目標に設計した、自分専用のAIキャリアコーチ。RAGを活用し、目標・スキル・市場を整理して次の一手を提示する。</p>
+      <div class="work-tags"><span class="work-tag">Dify</span><span class="work-tag">RAG</span><span class="work-tag">AI Coach</span></div>
+      <a href="https://udify.app/chat/zmpa7Fcy1pmE2p4C" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">OPEN DEMO →</a>
+    </div>
+    <div class="work-card">
+      <p class="work-num">06</p>
+      <h3 class="work-title">Moltbook Watcher</h3>
+      <p class="work-desc">Moltbook APIを定期ポーリングし、新着投稿をAIが自動分析・重要度スコアリングするリアルタイム監視ダッシュボード。スマホブラウザから操作可能なWeb UIを実装。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">Flask</span><span class="work-tag">OpenAI API</span><span class="work-tag">Termux</span></div>
+      <a href="https://github.com/tomu-ai963/moltbook-watcher" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">VIEW ON GITHUB →</a>
     </div>
   </div>
 </section>
-
-<!-- About -->
 <section id="about">
   <p class="section-label">About</p>
   <div class="about-inner">
     <div class="about-text">
-      <p>
-        <strong>AIをインフラとして使う</strong>開発者。コードを書くだけでなく、AIを設計・実行パートナーとして組み込んだシステムを独学で構築してきた。
-      </p>
-      <p>
-        スマートフォン1台のTermux環境からスタートし、Python・OpenAI API・Go・Difyを組み合わせたBotや自動化ツールを実装。
-      </p>
-      <p>
-        現在は<strong>フリーランスAIエンジニア</strong>として活動準備中。AIアプリ開発・Bot構築・自動化設計の案件に対応できる。
-      </p>
+      <p><strong>AIをインフラとして使う</strong>開発者。コードを書くだけでなく、AIを設計・実行パートナーとして組み込んだシステムを独学で構築してきた。</p>
+      <p>スマートフォン1台のTermux環境からスタートし、Python・OpenAI API・Go・Difyを組み合わせたBotや自動化ツールを実装。</p>
+      <p>現在は<strong>フリーランスAIエンジニア</strong>として活動準備中。AIアプリ開発・Bot構築・自動化設計の案件に対応できる。</p>
     </div>
     <div class="about-stats">
-      <div class="stat-item">
-        <p class="stat-num">4+</p>
-        <p class="stat-label">Projects</p>
-      </div>
-      <div class="stat-item">
-        <p class="stat-num">8+</p>
-        <p class="stat-label">Skills</p>
-      </div>
-      <div class="stat-item">
-        <p class="stat-num">AI</p>
-        <p class="stat-label">First Approach</p>
-      </div>
-      <div class="stat-item">
-        <p class="stat-num">365</p>
-        <p class="stat-label">Days Active</p>
-      </div>
+      <div class="stat-item"><p class="stat-num">6+</p><p class="stat-label">Projects</p></div>
+      <div class="stat-item"><p class="stat-num">8+</p><p class="stat-label">Skills</p></div>
+      <div class="stat-item"><p class="stat-num">AI</p><p class="stat-label">First Approach</p></div>
+      <div class="stat-item"><p class="stat-num">365</p><p class="stat-label">Days Active</p></div>
     </div>
   </div>
 </section>
-
-<!-- Contact -->
 <section id="contact">
-  <h2 class="contact-heading">
-    Let's build<br><span>something.</span>
-  </h2>
+  <h2 class="contact-heading">Let's build<br><span>something.</span></h2>
   <p class="contact-sub">AIエンジニアリングに関するご相談はXからどうぞ</p>
   <a href="https://x.com/tomu_ai_dev" target="_blank" class="contact-link">X @tomu_ai_dev</a>
 </section>
-
 <footer>
   <span>© 2026 とむ</span>
   <span>AI Engineer · Freelance</span>
 </footer>
-
 <script>
-  // カーソル
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   document.addEventListener('mousemove', e => {
@@ -673,23 +219,13 @@
     ring.style.left = e.clientX + 'px';
     ring.style.top = e.clientY + 'px';
   });
-
-  // ナビスクロール
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // フェードイン（スクロール）
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.skill-item, .work-card, .stat-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
@@ -699,4 +235,3 @@
 </script>
 </body>
 </html>
-
