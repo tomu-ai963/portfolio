@@ -1,1523 +1,258 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>フリーランスAIエンジニア 年収600万円達成ロードマップ</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <style>
-    :root {
-      --primary: #4f46e5;
-      --primary-light: #818cf8;
-      --primary-dark: #3730a3;
-      --secondary: #06b6d4;
-      --accent: #f59e0b;
-      --success: #10b981;
-      --bg: #0f172a;
-      --bg-card: #1e293b;
-      --bg-card2: #273549;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', 'Noto Sans JP', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    /* ===== HEADER ===== */
-    header {
-      background: var(--gradient);
-      padding: 60px 24px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
-    }
-    header .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 6px 18px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(4px);
-    }
-    header h1 {
-      font-size: clamp(24px, 5vw, 42px);
-      font-weight: 800;
-      line-height: 1.3;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-    header p {
-      font-size: 16px;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .header-stats {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-    .header-stat {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 16px;
-      padding: 16px 28px;
-      text-align: center;
-    }
-    .header-stat .num {
-      font-size: 28px;
-      font-weight: 800;
-      display: block;
-    }
-    .header-stat .label {
-      font-size: 12px;
-      opacity: 0.85;
-      margin-top: 4px;
-    }
-
-    /* ===== NAV ===== */
-    nav {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-      max-width: 1100px;
-      margin: 0 auto;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    nav ul::-webkit-scrollbar { display: none; }
-    nav ul li a {
-      display: block;
-      padding: 16px 20px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: color 0.2s;
-      border-bottom: 2px solid transparent;
-    }
-    nav ul li a:hover,
-    nav ul li a.active {
-      color: var(--primary-light);
-      border-bottom-color: var(--primary-light);
-    }
-
-    /* ===== MAIN ===== */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 48px 24px;
-    }
-
-    section {
-      margin-bottom: 64px;
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-title .icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    /* ===== CARDS ===== */
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(79,70,229,0.15);
-    }
-
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    @media (max-width: 768px) {
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    }
-
-    /* ===== MARKET STATS ===== */
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-    }
-    .stat-card .stat-value {
-      font-size: 32px;
-      font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      margin-bottom: 8px;
-    }
-    .stat-card .stat-label {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    .stat-card .stat-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
-
-    /* ===== CHART CONTAINER ===== */
-    .chart-container {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-    }
-    .chart-container canvas {
-      max-height: 320px;
-    }
-    .chart-title {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text-muted);
-    }
-
-    /* ===== ROADMAP ===== */
-    .roadmap-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      color: var(--text-muted);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .tab-btn:hover { border-color: var(--primary-light); color: var(--primary-light); }
-    .tab-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: white;
-    }
-
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    .phase-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 20px;
-    }
-    .phase-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .phase-num {
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-    .phase-title { font-size: 18px; font-weight: 700; }
-    .phase-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-
-    .skill-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-    }
-    .skill-item {
-      background: var(--bg-card2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .skill-item:hover {
-      border-color: var(--primary-light);
-      background: rgba(79,70,229,0.1);
-    }
-    .skill-item .skill-name {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .skill-item .skill-level {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-    .skill-item .skill-bar {
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-    .skill-item .skill-bar-fill {
-      height: 100%;
-      border-radius: 2px;
-      background: var(--gradient);
-      transition: width 1s ease;
-    }
-
-    /* ===== TIMELINE ===== */
-    .timeline {
-      position: relative;
-      padding-left: 32px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 10px; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--primary), var(--secondary));
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 28px;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -26px; top: 6px;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--primary);
-      border: 2px solid var(--bg);
-      box-shadow: 0 0 0 3px var(--primary);
-    }
-    .timeline-item .tl-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .timeline-item .tl-body {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-    .timeline-item .tl-tag {
-      display: inline-block;
-      background: rgba(79,70,229,0.2);
-      border: 1px solid rgba(79,70,229,0.4);
-      color: var(--primary-light);
-      padding: 2px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    /* ===== SKILL RADAR ===== */
-    .skill-radar-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 768px) {
-      .skill-radar-container { grid-template-columns: 1fr; }
-    }
-
-    /* ===== INCOME TABLE ===== */
-    .income-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    .income-table th {
-      background: rgba(79,70,229,0.2);
-      padding: 12px 16px;
-      text-align: left;
-      font-weight: 600;
-      color: var(--primary-light);
-      border-bottom: 1px solid var(--border);
-    }
-    .income-table td {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text-muted);
-    }
-    .income-table tr:hover td {
-      background: rgba(79,70,229,0.05);
-      color: var(--text);
-    }
-    .income-table .highlight td {
-      color: var(--text);
-      font-weight: 600;
-    }
-    .income-table .highlight td:first-child {
-      color: var(--accent);
-    }
-
-    /* ===== RESOURCE CARDS ===== */
-    .resource-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      transition: all 0.2s;
-    }
-    .resource-card:hover {
-      border-color: var(--primary-light);
-      transform: translateY(-2px);
-    }
-    .resource-card .rc-type {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--secondary);
-      margin-bottom: 8px;
-    }
-    .resource-card .rc-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .resource-card .rc-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .resource-card .rc-tag {
-      display: inline-block;
-      background: rgba(16,185,129,0.15);
-      border: 1px solid rgba(16,185,129,0.3);
-      color: var(--success);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      margin-top: 10px;
-    }
-
-    /* ===== CERT CARDS ===== */
-    .cert-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      transition: all 0.2s;
-    }
-    .cert-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-    .cert-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      background: rgba(245,158,11,0.15);
-      border: 1px solid rgba(245,158,11,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-    .cert-info .cert-name {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .cert-info .cert-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .cert-info .cert-level {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-top: 8px;
-    }
-    .level-beginner { background: rgba(16,185,129,0.15); color: var(--success); }
-    .level-intermediate { background: rgba(245,158,11,0.15); color: var(--accent); }
-    .level-advanced { background: rgba(239,68,68,0.15); color: #f87171; }
-
-    /* ===== PROGRESS TRACKER ===== */
-    .progress-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-    }
-    .progress-item {
-      margin-bottom: 20px;
-    }
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .progress-name { font-size: 14px; font-weight: 600; }
-    .progress-pct { font-size: 13px; color: var(--text-muted); }
-    .progress-bar {
-      height: 8px;
-      background: var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 1.2s ease;
-    }
-
-    /* ===== TOOLTIP ===== */
-    .tooltip-wrap {
-      position: relative;
-      display: inline-block;
-    }
-    .tooltip-wrap .tooltip-box {
-      display: none;
-      position: absolute;
-      bottom: 130%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-card2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: var(--text);
-      white-space: nowrap;
-      z-index: 200;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    }
-    .tooltip-wrap:hover .tooltip-box { display: block; }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      padding: 32px 24px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-    footer a { color: var(--primary-light); text-decoration: none; }
-
-    /* ===== SCROLL ANIMATIONS ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ===== BADGE TAGS ===== */
-    .tag {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .tag-blue { background: rgba(79,70,229,0.2); color: var(--primary-light); }
-    .tag-cyan { background: rgba(6,182,212,0.2); color: var(--secondary); }
-    .tag-green { background: rgba(16,185,129,0.2); color: var(--success); }
-    .tag-amber { background: rgba(245,158,11,0.2); color: var(--accent); }
-
-    /* ===== MODAL ===== */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 500;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      max-width: 480px;
-      width: 100%;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    .modal-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .modal-close {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background: var(--primary);
-      border: none;
-      border-radius: 10px;
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .modal-close:hover { background: var(--primary-dark); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 640px) {
-      header { padding: 40px 16px 60px; }
-      .header-stats { gap: 12px; }
-      .header-stat { padding: 12px 16px; }
-      .header-stat .num { font-size: 22px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とむ | AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Sans+JP:wght@300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-dim: #8a6e2f;
+    --gold-bright: #e8c86a;
+    --bg: #080808;
+    --bg2: #0e0e0e;
+    --bg3: #141414;
+    --text: #e8e0d0;
+    --text-dim: #7a7060;
+    --border: rgba(201,168,76,0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; line-height: 1.8; cursor: none; }
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(201,168,76,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.3s ease, width 0.2s, height 0.2s; transform: translate(-50%, -50%); }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 60px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  nav.scrolled { background: rgba(8,8,8,0.92); backdrop-filter: blur(12px); border-color: var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--gold); letter-spacing: 3px; text-decoration: none; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; cursor: none; }
+  .nav-links a:hover { color: var(--gold); }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 60px; position: relative; overflow: hidden; }
+  .geo-bg { position: absolute; right: -100px; top: 50%; transform: translateY(-50%); width: 700px; height: 700px; opacity: 0.06; animation: slowRotate 60s linear infinite; }
+  @keyframes slowRotate { to { transform: translateY(-50%) rotate(360deg); } }
+  .hero-content { max-width: 700px; position: relative; z-index: 2; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 8vw, 110px); font-weight: 300; line-height: 0.95; color: var(--gold); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-name span { color: var(--gold); display: block; }
+  .hero-desc { font-size: 15px; color: var(--text-dim); max-width: 440px; line-height: 2; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 12px; padding: 14px 32px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; transition: background 0.2s, color 0.2s; cursor: none; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .hero-cta:hover { background: var(--gold); color: var(--bg); }
+  .hero-cta::after { content: '→'; }
+  .hero-scroll { position: absolute; bottom: 40px; left: 60px; display: flex; align-items: center; gap: 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 3px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .scroll-line { width: 40px; height: 1px; background: var(--gold-dim); animation: scrollLine 2s ease-in-out infinite; }
+  @keyframes scrollLine { 0%, 100% { width: 40px; opacity: 1; } 50% { width: 70px; opacity: 0.5; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  section { padding: 120px 60px; border-top: 1px solid var(--border); }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 60px; display: flex; align-items: center; gap: 20px; }
+  .section-label::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--gold-dim); }
+  #skills { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .skill-item { background: var(--bg2); padding: 32px 28px; transition: background 0.2s; position: relative; overflow: hidden; }
+  .skill-item::before { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+  .skill-item:hover { background: var(--bg3); }
+  .skill-item:hover::before { width: 100%; }
+  .skill-name { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--text); margin-bottom: 6px; letter-spacing: 1px; }
+  .skill-level { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+  #works { background: var(--bg); }
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+  .work-card { background: var(--bg); padding: 40px 36px; position: relative; overflow: hidden; transition: background 0.2s; cursor: none; }
+  .work-card::after { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--gold); transition: height 0.3s; }
+  .work-card:hover { background: var(--bg3); }
+  .work-card:hover::after { height: 100%; }
+  .work-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--border); line-height: 1; margin-bottom: 20px; letter-spacing: -2px; }
+  .work-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--text); margin-bottom: 12px; letter-spacing: 0.5px; }
+  .work-desc { font-size: 13px; color: var(--text-dim); line-height: 1.9; margin-bottom: 20px; }
+  .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .work-tag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold-dim); border: 1px solid rgba(201,168,76,0.2); padding: 4px 10px; letter-spacing: 1px; }
+  #about { background: var(--bg2); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-text { font-size: 15px; color: var(--text-dim); line-height: 2.2; }
+  .about-text p { margin-bottom: 20px; }
+  .about-text strong { color: var(--gold); font-weight: 400; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); align-self: start; }
+  .stat-item { background: var(--bg2); padding: 28px 24px; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+  #contact { background: var(--bg); text-align: center; }
+  .contact-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 300; color: #fff; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+  .contact-heading span { color: var(--gold); }
+  .contact-sub { font-size: 14px; color: var(--text-dim); margin-bottom: 48px; letter-spacing: 1px; }
+  .contact-link { display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; background: var(--gold); color: var(--bg); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; transition: background 0.2s, transform 0.2s; cursor: none; }
+  .contact-link:hover { background: var(--gold-bright); transform: translateY(-2px); }
+  footer { padding: 32px 60px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  footer span { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 2px; }
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero, section { padding-left: 24px; padding-right: 24px; }
+    .hero-scroll { left: 24px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
 </head>
 <body>
-
-<!-- HEADER -->
-<header>
-  <div class="badge">2025-2026年 最新版</div>
-  <h1>フリーランスAIエンジニア<br>年収600万円達成ロードマップ</h1>
-  <p>市場データに基づく学習戦略・スキルセット・案件獲得の完全ガイド</p>
-  <div class="header-stats">
-    <div class="header-stat">
-      <span class="num">628.9万円</span>
-      <span class="label">AIエンジニア全国平均年収</span>
-    </div>
-    <div class="header-stat">
-      <span class="num">79万円</span>
-      <span class="label">フリーランス平均月額単価</span>
-    </div>
-    <div class="header-stat">
-      <span class="num">1,426件</span>
-      <span class="label">AI案件数（2025年7月時点）</span>
-    </div>
-  </div>
-</header>
-
-<!-- NAV -->
-<nav>
-  <ul>
-    <li><a href="#market" class="active">市場データ</a></li>
-    <li><a href="#roadmap">学習ロードマップ</a></li>
-    <li><a href="#skills">スキルセット</a></li>
-    <li><a href="#income">年収シミュレーション</a></li>
-    <li><a href="#resources">学習リソース</a></li>
-    <li><a href="#certs">資格ガイド</a></li>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav id="nav">
+  <a href="#hero" class="nav-logo">とむ</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-
-<!-- MAIN -->
-<main>
-
-  <!-- ===== SECTION 1: MARKET ===== -->
-  <section id="market" class="fade-in">
-    <div class="section-title">
-      <div class="icon">📊</div>
-      フリーランスAIエンジニア市場データ
-    </div>
-
-    <div class="grid-3" style="margin-bottom:24px;">
-      <div class="stat-card">
-        <span class="stat-value">628.9万円</span>
-        <div class="stat-label">AIエンジニア全国平均年収</div>
-        <div class="stat-sub">（令和6年・厚生労働省調査）</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-value">約948万円</span>
-        <div class="stat-label">フリーランスAIエンジニア想定年収</div>
-        <div class="stat-sub">（月額79万円 × 12ヶ月換算）</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-value">+36.8%</span>
-        <div class="stat-label">全国平均給与との差</div>
-        <div class="stat-sub">（全国平均460万円比）</div>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="chart-container">
-        <div class="chart-title">AIエンジニア 年齢別年収（万円）</div>
-        <canvas id="ageChart"></canvas>
-      </div>
-      <div class="chart-container">
-        <div class="chart-title">IT職種別 平均年収比較（万円）</div>
-        <canvas id="jobChart"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 2: ROADMAP ===== -->
-  <section id="roadmap" class="fade-in">
-    <div class="section-title">
-      <div class="icon">🗺️</div>
-      学習ロードマップ
-    </div>
-
-    <div class="roadmap-tabs">
-      <button class="tab-btn active" onclick="switchTab('phase1', this)">Step 1: 基礎固め</button>
-      <button class="tab-btn" onclick="switchTab('phase2', this)">Step 2: 実践力強化</button>
-      <button class="tab-btn" onclick="switchTab('phase3', this)">Step 3: 案件獲得</button>
-    </div>
-
-    <!-- PHASE 1 -->
-    <div id="phase1" class="tab-content active">
-      <div class="phase-card">
-        <div class="phase-header">
-          <div class="phase-num">1</div>
-          <div>
-            <div class="phase-title">基礎固めフェーズ</div>
-            <div class="phase-subtitle">目標: 年収400〜600万円レベルのスキル習得 / 推奨期間: 6〜12ヶ月</div>
-          </div>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="tl-tag">MATH</span>
-            <div class="tl-title">数学・統計学の基礎</div>
-            <div class="tl-body">線形代数（行列・ベクトル）、微分・積分（最適化理論）、確率・統計（分布・仮説検定）を習得します。AIアルゴリズムの理論的基盤となる重要な土台です。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">PYTHON</span>
-            <div class="tl-title">Pythonプログラミング</div>
-            <div class="tl-body">基本文法からオブジェクト指向まで。NumPy・Pandas・Scikit-learn・SQLを使いこなし、クリーンで保守性の高いコードを書く能力を磨きます。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">ML</span>
-            <div class="tl-title">機械学習の理論と実装</div>
-            <div class="tl-body">回帰・分類・クラスタリングの基本タスクと代表的アルゴリズム（線形回帰、SVM、決定木、ランダムフォレスト）を学びます。Scikit-learnで実際にモデルを構築しましょう。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">DL</span>
-            <div class="tl-title">深層学習（ディープラーニング）</div>
-            <div class="tl-body">ニューラルネットワークの基本構造から、CNN（画像認識）・RNN（時系列）・Transformer（NLP）まで。TensorFlowまたはPyTorchで実装経験を積みます。</div>
-          </div>
-        </div>
-
-        <div style="margin-top:20px;">
-          <div class="chart-title" style="margin-bottom:12px;">このフェーズで習得するスキル（クリックで詳細）</div>
-          <div class="skill-grid">
-            <div class="skill-item" onclick="showModal('python')">
-              <div class="skill-name">Python</div>
-              <div class="skill-level">必須 / 基礎〜中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('numpy')">
-              <div class="skill-name">NumPy / Pandas</div>
-              <div class="skill-level">必須 / 基礎</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('sklearn')">
-              <div class="skill-name">Scikit-learn</div>
-              <div class="skill-level">必須 / 基礎〜中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('math')">
-              <div class="skill-name">線形代数 / 統計</div>
-              <div class="skill-level">必須 / 基礎</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('pytorch')">
-              <div class="skill-name">PyTorch / TensorFlow</div>
-              <div class="skill-level">必須 / 基礎</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('sql')">
-              <div class="skill-name">SQL</div>
-              <div class="skill-level">必須 / 基礎</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PHASE 2 -->
-    <div id="phase2" class="tab-content">
-      <div class="phase-card">
-        <div class="phase-header">
-          <div class="phase-num">2</div>
-          <div>
-            <div class="phase-title">実践力強化フェーズ</div>
-            <div class="phase-subtitle">目標: 年収600万円超のスキル習得 / 推奨期間: 6〜12ヶ月</div>
-          </div>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="tl-tag">CLOUD</span>
-            <div class="tl-title">クラウドとMLOps</div>
-            <div class="tl-body">AWS / GCP / Azure の主要AI/MLサービスを習得。DockerやKubernetesでのコンテナ管理、CI/CDパイプラインの構築で「動くモデル」から「運用できるシステム」へ。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">LLM</span>
-            <div class="tl-title">大規模言語モデル（LLM）と生成AI</div>
-            <div class="tl-body">LangChain・LlamaIndexでのLLMアプリ開発、RAGやファインチューニングによるカスタマイズ、プロンプトエンジニアリングを習得。2025年最も需要の高い技術領域です。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">SPEC</span>
-            <div class="tl-title">専門分野の確立</div>
-            <div class="tl-body">画像認識・NLP・データサイエンス・音声認識など、自身の強みとなる専門分野を深掘りします。「AIの何でも屋」より「〇〇に強いAIエンジニア」が高単価案件を獲得しやすいです。</div>
-          </div>
-        </div>
-
-        <div style="margin-top:20px;">
-          <div class="chart-title" style="margin-bottom:12px;">このフェーズで習得するスキル（クリックで詳細）</div>
-          <div class="skill-grid">
-            <div class="skill-item" onclick="showModal('aws')">
-              <div class="skill-name">AWS / GCP / Azure</div>
-              <div class="skill-level">重要 / 中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('docker')">
-              <div class="skill-name">Docker / Kubernetes</div>
-              <div class="skill-level">重要 / 中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('langchain')">
-              <div class="skill-name">LangChain / LlamaIndex</div>
-              <div class="skill-level">最重要 / 中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('rag')">
-              <div class="skill-name">RAG / ファインチューニング</div>
-              <div class="skill-level">最重要 / 中〜上級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('prompt')">
-              <div class="skill-name">プロンプトエンジニアリング</div>
-              <div class="skill-level">重要 / 基礎〜中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
-            </div>
-            <div class="skill-item" onclick="showModal('mlops')">
-              <div class="skill-name">MLOps / CI/CD</div>
-              <div class="skill-level">重要 / 中級</div>
-              <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PHASE 3 -->
-    <div id="phase3" class="tab-content">
-      <div class="phase-card">
-        <div class="phase-header">
-          <div class="phase-num">3</div>
-          <div>
-            <div class="phase-title">案件獲得とキャリア構築フェーズ</div>
-            <div class="phase-subtitle">目標: 安定した高単価案件の獲得 / 継続的な取り組み</div>
-          </div>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="tl-tag">PORTFOLIO</span>
-            <div class="tl-title">ポートフォリオの構築</div>
-            <div class="tl-body">Kaggleコンペへの参加・個人プロジェクトの開発・GitHubでのコード公開・技術ブログの執筆などを通じて、スキルを客観的に証明できる実績を積みます。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">CHANNEL</span>
-            <div class="tl-title">案件獲得チャネルの確保</div>
-            <div class="tl-body">フリーランスエージェント（Relance、レバテックフリーランス等）への登録、クラウドソーシング（ランサーズ、クラウドワークス等）の活用、リファラル（紹介）ネットワークの構築。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">COMMUNITY</span>
-            <div class="tl-title">コミュニティとネットワーキング</div>
-            <div class="tl-body">PyCon JPなどの技術カンファレンスへの参加、オンラインコミュニティへの参加、もくもく会・論文輪読会などの勉強会への参加で、人脈と最新情報を獲得します。</div>
-          </div>
-          <div class="timeline-item">
-            <span class="tl-tag">BUSINESS</span>
-            <div class="tl-title">フリーランスとしての事業運営</div>
-            <div class="tl-body">確定申告・税務の基礎知識、契約書の確認・交渉スキル、収入の波に備えた資金管理、継続的なスキルアップデートによる陳腐化防止が重要です。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 3: SKILLS ===== -->
-  <section id="skills" class="fade-in">
-    <div class="section-title">
-      <div class="icon">🧠</div>
-      必要スキルセット
-    </div>
-
-    <div class="skill-radar-container">
-      <div class="chart-container">
-        <div class="chart-title">スキル重要度レーダーチャート</div>
-        <canvas id="radarChart"></canvas>
-      </div>
-      <div>
-        <div class="progress-section">
-          <div class="chart-title" style="margin-bottom:20px;">スキル習得優先度</div>
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-name">Python / プログラミング</span>
-              <span class="progress-pct">95%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width:95%; background:linear-gradient(90deg,#4f46e5,#818cf8)"></div>
-            </div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-name">LLM / 生成AI</span>
-              <span class="progress-pct">90%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width:90%; background:linear-gradient(90deg,#06b6d4,#67e8f9)"></div>
-            </div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-name">機械学習・深層学習</span>
-              <span class="progress-pct">85%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width:85%; background:linear-gradient(90deg,#10b981,#6ee7b7)"></div>
-            </div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-name">クラウド / MLOps</span>
-              <span class="progress-pct">80%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width:80%; background:linear-gradient(90deg,#f59e0b,#fcd34d)"></div>
-            </div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-name">数学・統計</span>
-              <span class="progress-pct">70%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width:70%; background:linear-gradient(90deg,#8b5cf6,#c4b5fd)"></div>
-            </div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-name">ビジネス理解 / コミュニケーション</span>
-              <span class="progress-pct">75%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width:75%; background:linear-gradient(90deg,#ef4444,#fca5a5)"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:24px;">
-      <div class="chart-title" style="margin-bottom:16px;">案件種別と求められるスキル</div>
-      <div class="grid-3">
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px;">🤖</div>
-          <div style="font-weight:700;margin-bottom:8px;">AIモデル開発</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">TensorFlow・PyTorchでの深層学習モデル実装。研究開発要素が強く高単価案件が多い。</div>
-          <span class="tag tag-blue">Python</span>
-          <span class="tag tag-cyan">PyTorch</span>
-          <span class="tag tag-green">TensorFlow</span>
-        </div>
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px;">💬</div>
-          <div style="font-weight:700;margin-bottom:8px;">LLM / 生成AIアプリ</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">ChatGPT以降、最も需要が急増。RAG・ファインチューニング・LangChainが必須スキル。</div>
-          <span class="tag tag-blue">LangChain</span>
-          <span class="tag tag-cyan">RAG</span>
-          <span class="tag tag-amber">OpenAI API</span>
-        </div>
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px;">⚙️</div>
-          <div style="font-weight:700;margin-bottom:8px;">MLOps / モデル運用</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">本番環境でのAI安定稼働。DevOpsスキルとAI知識の両方が必要な希少人材。</div>
-          <span class="tag tag-blue">Docker</span>
-          <span class="tag tag-cyan">Kubernetes</span>
-          <span class="tag tag-green">AWS</span>
-        </div>
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px;">📊</div>
-          <div style="font-weight:700;margin-bottom:8px;">データサイエンス</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">ビジネス課題の発見からデータ分析・施策提案まで。コンサルティング要素も含む高付加価値案件。</div>
-          <span class="tag tag-blue">Pandas</span>
-          <span class="tag tag-cyan">SQL</span>
-          <span class="tag tag-amber">Tableau</span>
-        </div>
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px;">👁️</div>
-          <div style="font-weight:700;margin-bottom:8px;">画像認識 / CV</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">製造業品質検査・医療画像診断・自動運転など。エッジAI技術への需要も高まっている。</div>
-          <span class="tag tag-blue">OpenCV</span>
-          <span class="tag tag-cyan">YOLO</span>
-          <span class="tag tag-green">CNN</span>
-        </div>
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px;">🗣️</div>
-          <div style="font-weight:700;margin-bottom:8px;">自然言語処理（NLP）</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">チャットボット・感情分析・文章要約など。LLMの普及でさらに需要が拡大している分野。</div>
-          <span class="tag tag-blue">Transformers</span>
-          <span class="tag tag-cyan">BERT</span>
-          <span class="tag tag-amber">spaCy</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 4: INCOME ===== -->
-  <section id="income" class="fade-in">
-    <div class="section-title">
-      <div class="icon">💰</div>
-      年収シミュレーション
-    </div>
-
-    <div class="grid-2" style="margin-bottom:24px;">
-      <div class="chart-container">
-        <div class="chart-title">スキルレベル別 年収レンジ（ITSS基準）</div>
-        <canvas id="incomeChart"></canvas>
-      </div>
-      <div class="chart-container">
-        <div class="chart-title">経験年数別 月額給与（万円）</div>
-        <canvas id="expChart"></canvas>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="chart-title" style="margin-bottom:16px;">フリーランスAIエンジニア 案件単価・年収テーブル</div>
-      <table class="income-table">
-        <thead>
-          <tr>
-            <th>スキルレベル</th>
-            <th>月額単価目安</th>
-            <th>想定年収</th>
-            <th>主な案件タイプ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>入門（0〜1年）</td>
-            <td>20〜40万円</td>
-            <td>240〜480万円</td>
-            <td>データ前処理・分析補助</td>
-          </tr>
-          <tr>
-            <td>初級（1〜3年）</td>
-            <td>40〜60万円</td>
-            <td>480〜720万円</td>
-            <td>MLモデル開発・実装</td>
-          </tr>
-          <tr class="highlight">
-            <td>中級（3〜5年）★600万円ライン</td>
-            <td>50〜80万円</td>
-            <td>600〜960万円</td>
-            <td>LLMアプリ・MLOps・NLP</td>
-          </tr>
-          <tr>
-            <td>上級（5年以上）</td>
-            <td>80〜150万円</td>
-            <td>960〜1,800万円</td>
-            <td>AIアーキテクト・テックリード</td>
-          </tr>
-          <tr>
-            <td>エキスパート</td>
-            <td>150万円〜</td>
-            <td>1,800万円〜</td>
-            <td>AI戦略コンサル・研究開発</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 5: RESOURCES ===== -->
-  <section id="resources" class="fade-in">
-    <div class="section-title">
-      <div class="icon">📚</div>
-      おすすめ学習リソース
-    </div>
-
-    <div class="grid-3">
-      <div class="resource-card">
-        <div class="rc-type">ONLINE COURSE</div>
-        <div class="rc-title">Machine Learning Specialization (Coursera)</div>
-        <div class="rc-desc">スタンフォード大学アンドリュー・エン教授による世界標準の機械学習講座。理論と実装をバランスよく学べる定番コース。</div>
-        <span class="rc-tag">英語 / 無料聴講可</span>
-      </div>
-      <div class="resource-card">
-        <div class="rc-type">ONLINE COURSE</div>
-        <div class="rc-title">Deep Learning Specialization (Coursera)</div>
-        <div class="rc-desc">ディープラーニングの基礎から応用まで5コース構成。CNN・RNN・Transformerを体系的に学べる。</div>
-        <span class="rc-tag">英語 / 無料聴講可</span>
-      </div>
-      <div class="resource-card">
-        <div class="rc-type">PLATFORM</div>
-        <div class="rc-title">Udemy</div>
-        <div class="rc-desc">Python・機械学習・LLMに関する豊富な日本語講座が揃っている。セール時に購入すれば低コストで学習可能。</div>
-        <span class="rc-tag">日本語あり / 有料</span>
-      </div>
-      <div class="resource-card">
-        <div class="rc-type">COMPETITION</div>
-        <div class="rc-title">Kaggle</div>
-        <div class="rc-desc">世界最大のデータサイエンスコンペティションプラットフォーム。実践的なスキルを磨き、ポートフォリオを構築できる。</div>
-        <span class="rc-tag">無料 / 実績構築に最適</span>
-      </div>
-      <div class="resource-card">
-        <div class="rc-type">BOOK</div>
-        <div class="rc-title">ゼロから作るDeep Learning（シリーズ）</div>
-        <div class="rc-desc">Pythonを使ってディープラーニングの仕組みを基礎から実装レベルで理解できる日本語の名著。</div>
-        <span class="rc-tag">日本語 / 書籍</span>
-      </div>
-      <div class="resource-card">
-        <div class="rc-type">PLATFORM</div>
-        <div class="rc-title">HuggingFace</div>
-        <div class="rc-desc">最新のLLM・Transformerモデルが集まるプラットフォーム。モデルの実装・ファインチューニングの実践に最適。</div>
-        <span class="rc-tag">無料 / 最新技術</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 6: CERTS ===== -->
-  <section id="certs" class="fade-in">
-    <div class="section-title">
-      <div class="icon">🏆</div>
-      資格ガイド
-    </div>
-
-    <div class="grid-2">
-      <div class="cert-card">
-        <div class="cert-icon">🧬</div>
-        <div class="cert-info">
-          <div class="cert-name">E資格（JDLA）</div>
-          <div class="cert-desc">日本ディープラーニング協会が主催するエンジニア向け資格。ディープラーニングの理論・実装を体系的に証明できる。</div>
-          <span class="cert-level level-advanced">上級</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">📋</div>
-        <div class="cert-info">
-          <div class="cert-name">G検定（JDLA）</div>
-          <div class="cert-desc">AIの基礎知識・活用・倫理を問うジェネラリスト向け資格。E資格の前段として取得するのがおすすめ。</div>
-          <span class="cert-level level-beginner">入門〜中級</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">☁️</div>
-        <div class="cert-info">
-          <div class="cert-name">AWS Certified Machine Learning</div>
-          <div class="cert-desc">AWSのML専門資格。SageMakerなどのAWSサービスを活用したMLOps案件で高く評価される。</div>
-          <span class="cert-level level-intermediate">中〜上級</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">📊</div>
-        <div class="cert-info">
-          <div class="cert-name">統計検定 2級</div>
-          <div class="cert-desc">データサイエンスの基礎となる統計知識を証明する全国統一試験。データ分析系の案件獲得に有効。</div>
-          <span class="cert-level level-intermediate">中級</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🐍</div>
-        <div class="cert-info">
-          <div class="cert-name">Python3エンジニア認定データ分析試験</div>
-          <div class="cert-desc">Pythonを使ったデータ分析スキルを証明する資格。NumPy・Pandas・Matplotlibの活用が問われる。</div>
-          <span class="cert-level level-beginner">入門〜中級</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🔷</div>
-        <div class="cert-info">
-          <div class="cert-name">Google Cloud Professional ML Engineer</div>
-          <div class="cert-desc">GCPのMLサービスを活用した設計・実装・運用能力を証明。クラウド案件での差別化に有効。</div>
-          <span class="cert-level level-advanced">上級</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-  <p>本レポートは公開情報をもとにManus AIが作成しました。年収・単価データは市場調査に基づく目安であり、個人の状況により異なります。</p>
-  <p style="margin-top:8px;">
-    参考: <a href="https://magazine.web-camp.io/columns/career/ai_engineer_salary/" target="_blank">DMM WEBCAMP</a> /
-    <a href="https://relance.jp/blog/ai-engineer-earn-money/" target="_blank">Relance</a> /
-    <a href="https://relance.jp/blog/roadmap-to-be-ai-engineer/" target="_blank">Relance ロードマップ</a>
-  </p>
-</footer>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal-box">
-    <div class="modal-title" id="modalTitle"></div>
-    <div id="modalBody"></div>
-    <button class="modal-close" onclick="closeModalDirect()">閉じる</button>
+<section id="hero">
+  <svg class="geo-bg" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="350" cy="350" r="320" stroke="#C9A84C" stroke-width="1"/>
+    <circle cx="350" cy="350" r="250" stroke="#C9A84C" stroke-width="0.8"/>
+    <circle cx="350" cy="350" r="180" stroke="#C9A84C" stroke-width="0.6"/>
+    <circle cx="350" cy="350" r="100" stroke="#C9A84C" stroke-width="0.5"/>
+    <line x1="350" y1="30" x2="350" y2="670" stroke="#C9A84C" stroke-width="0.5"/>
+    <line x1="30" y1="350" x2="670" y2="350" stroke="#C9A84C" stroke-width="0.5"/>
+    <line x1="124" y1="124" x2="576" y2="576" stroke="#C9A84C" stroke-width="0.5"/>
+    <line x1="576" y1="124" x2="124" y2="576" stroke="#C9A84C" stroke-width="0.5"/>
+    <line x1="90" y1="240" x2="610" y2="460" stroke="#C9A84C" stroke-width="0.4"/>
+    <line x1="610" y1="240" x2="90" y2="460" stroke="#C9A84C" stroke-width="0.4"/>
+    <line x1="240" y1="90" x2="460" y2="610" stroke="#C9A84C" stroke-width="0.4"/>
+    <line x1="460" y1="90" x2="240" y2="610" stroke="#C9A84C" stroke-width="0.4"/>
+    <polygon points="350,50 600,200 600,500 350,650 100,500 100,200" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.5"/>
+  </svg>
+  <div class="hero-content">
+    <p class="hero-tag">— Freelance AI Engineer</p>
+    <h1 class="hero-name">とむ<span>AI × Code</span></h1>
+    <p class="hero-desc">AIをツールではなくインフラとして使う。<br>独学で積み上げた自動化・Bot・AIアプリの設計と実装。</p>
+    <a href="#works" class="hero-cta">View Works</a>
   </div>
-</div>
-
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+<section id="skills">
+  <p class="section-label">Skills</p>
+  <div class="skills-grid">
+    <div class="skill-item"><p class="skill-name">Python</p><p class="skill-level">Bot / API / Automation</p></div>
+    <div class="skill-item"><p class="skill-name">OpenAI API</p><p class="skill-level">GPT Integration</p></div>
+    <div class="skill-item"><p class="skill-name">Dify</p><p class="skill-level">AI App Builder</p></div>
+    <div class="skill-item"><p class="skill-name">GitHub</p><p class="skill-level">Version Control / Pages</p></div>
+    <div class="skill-item"><p class="skill-name">SVG / HTML / CSS</p><p class="skill-level">Frontend / Design</p></div>
+    <div class="skill-item"><p class="skill-name">Go</p><p class="skill-level">Server / Webhook</p></div>
+    <div class="skill-item"><p class="skill-name">Termux</p><p class="skill-level">Android Dev Environment</p></div>
+    <div class="skill-item"><p class="skill-name">Flask</p><p class="skill-level">Web App / API Server</p></div>
+  </div>
+</section>
+<section id="works">
+  <p class="section-label">Works</p>
+  <div class="works-grid">
+    <div class="work-card">
+      <p class="work-num">01</p>
+      <h3 class="work-title">Web Site Development</h3>
+      <p class="work-desc">GitHub Pagesを活用したWebサイト構築。DifyチャットボットをAPIで統合し、動的なAI連携を実装。</p>
+      <div class="work-tags"><span class="work-tag">HTML/CSS</span><span class="work-tag">Dify</span><span class="work-tag">GitHub Pages</span></div>
+    </div>
+    <div class="work-card">
+      <p class="work-num">02</p>
+      <h3 class="work-title">API Monitoring Bot</h3>
+      <p class="work-desc">外部APIを監視し、新着データを自動取得・AI要約・翻訳・通知まで一貫処理するPython Bot。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">OpenAI API</span><span class="work-tag">Termux</span></div>
+    </div>
+    <div class="work-card">
+      <p class="work-num">03</p>
+      <h3 class="work-title">SVG Auto Generator</h3>
+      <p class="work-desc">AIと協働し、幾何学図形・神聖幾何学・放射構造のSVGを自動生成するシステム。タスクキュー型で管理。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">SVG</span><span class="work-tag">AI Agent</span></div>
+    </div>
+    <div class="work-card">
+      <p class="work-num">04</p>
+      <h3 class="work-title">AI Agent System</h3>
+      <p class="work-desc">タスク受付・実行・自動処理を行う疑似エージェント構造をPythonで実装。キュー投入による非同期処理。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">agentd.py</span><span class="work-tag">Automation</span></div>
+    </div>
+    <div class="work-card">
+      <p class="work-num">05</p>
+      <h3 class="work-title">AI Career Coach</h3>
+      <p class="work-desc">年収600万フリーランスAIエンジニアを目標に設計した、自分専用のAIキャリアコーチ。RAGを活用し、目標・スキル・市場を整理して次の一手を提示する。</p>
+      <div class="work-tags"><span class="work-tag">Dify</span><span class="work-tag">RAG</span><span class="work-tag">AI Coach</span></div>
+      <a href="https://udify.app/chat/zmpa7Fcy1pmE2p4C" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">OPEN DEMO →</a>
+    </div>
+    <div class="work-card">
+      <p class="work-num">06</p>
+      <h3 class="work-title">Moltbook Watcher</h3>
+      <p class="work-desc">Moltbook APIを定期ポーリングし、新着投稿をAIが自動分析・重要度スコアリングするリアルタイム監視ダッシュボード。スマホブラウザから操作可能なWeb UIを実装。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">Flask</span><span class="work-tag">OpenAI API</span><span class="work-tag">Termux</span></div>
+      <a href="https://github.com/tomu-ai963/moltbook-watcher" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">VIEW ON GITHUB →</a>
+    </div>
+    <div class="work-card">
+      <p class="work-num">07</p>
+      <h3 class="work-title">Decision Partner</h3>
+      <p class="work-desc">聖幾何学（マカバ）のビジュアルと共に、迷いをYES/NOで決断するWebツール。直感と論理を融合させた思考支援の実験場。</p>
+      <div class="work-tags"><span class="work-tag">HTML</span><span class="work-tag">JavaScript</span><span class="work-tag">Sacred Geometry</span></div>
+      <a href="https://tomu-ai963.github.io/decision-partner/" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">VIEW LIVE →</a>
+    </div>
+    <div class="work-card">
+      <p class="work-num">08</p>
+      <h3 class="work-title">LLM Orchestrator</h3>
+      <p class="work-desc">Claude・ChatGPT・Geminiの3つのAIに共有コンテキストを持たせ、Termuxから一括操作できるCLIツール。council・review・askなどのコマンドで、複数AIの視点を束ねたマルチAI運用を実現。</p>
+      <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">Multi-AI</span><span class="work-tag">Termux</span></div>
+      <a href="https://github.com/tomu-ai963/llm-orchestrator" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">VIEW ON GITHUB →</a>
+    </div>
+    <div class="work-card">
+      <p class="work-num">09</p>
+      <h3 class="work-title">Marketing Agent</h3>
+      <p class="work-desc">GeminiまたはOpenAIを選択し、ターゲット・トピックを入力するだけでマーケティング分析を自動実行するWebエージェント。APIキー設定のみでブラウザ完結で動作する技術者向けツール。</p>
+      <div class="work-tags"><span class="work-tag">JavaScript</span><span class="work-tag">Gemini API</span><span class="work-tag">GitHub Pages</span></div>
+      <a href="https://tomu-ai963.github.io/marketing-agent/" target="_blank" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">VIEW LIVE →</a>
+    </div>
+  </div>
+</section>
+<section id="about">
+  <p class="section-label">About</p>
+  <div class="about-inner">
+    <div class="about-text">
+      <p><strong>AIをインフラとして使う</strong>開発者。コードを書くだけでなく、AIを設計・実行パートナーとして組み込んだシステムを独学で構築してきた。</p>
+      <p>スマートフォン1台のTermux環境からスタートし、Python・OpenAI API・Go・Difyを組み合わせたBotや自動化ツールを実装。</p>
+      <p>現在は<strong>フリーランスAIエンジニア</strong>として活動準備中。AIアプリ開発・Bot構築・自動化設計の案件に対応できる。</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-item"><p class="stat-num">9+</p><p class="stat-label">Projects</p></div>
+      <div class="stat-item"><p class="stat-num">8+</p><p class="stat-label">Skills</p></div>
+      <div class="stat-item"><p class="stat-num">AI</p><p class="stat-label">First Approach</p></div>
+      <div class="stat-item"><p class="stat-num">365</p><p class="stat-label">Days Active</p></div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <h2 class="contact-heading">Let's build<br><span>something.</span></h2>
+  <p class="contact-sub">AIエンジニアリングに関するご相談はXからどうぞ</p>
+  <a href="https://x.com/tomu_ai_dev" target="_blank" class="contact-link">X @tomu_ai_dev</a>
+</section>
+<footer>
+  <span>© 2026 とむ</span>
+  <span>AI Engineer · Freelance</span>
+</footer>
 <script>
-// ===== SKILL MODAL DATA =====
-const skillData = {
-  python: {
-    title: '🐍 Python',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">AI開発の共通言語。基本文法・オブジェクト指向・関数型プログラミングをマスターした上で、NumPy・Pandas・Scikit-learnなどのライブラリを使いこなすことが求められます。</p>
-    <p style="margin-top:12px;font-size:13px;color:var(--text-muted)"><strong style="color:var(--text)">推奨学習リソース:</strong> Python公式チュートリアル、Udemy「Python入門」、Coursera「Python for Everybody」</p>`
-  },
-  numpy: {
-    title: '🔢 NumPy / Pandas',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">NumPyは高速な数値計算、PandasはDataFrameを使ったデータ操作・分析に使います。AI開発のデータ前処理フェーズで毎日使うライブラリです。</p>
-    <p style="margin-top:12px;font-size:13px;color:var(--text-muted)"><strong style="color:var(--text)">習得目安:</strong> 基本操作1〜2週間、実践レベル1〜2ヶ月</p>`
-  },
-  sklearn: {
-    title: '⚙️ Scikit-learn',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">機械学習アルゴリズムを統一されたAPIで実装できるライブラリ。回帰・分類・クラスタリング・次元削減など、基本的なMLタスクはすべてScikit-learnで実装できます。</p>
-    <p style="margin-top:12px;font-size:13px;color:var(--text-muted)"><strong style="color:var(--text)">習得目安:</strong> 基本的なモデル構築まで2〜4週間</p>`
-  },
-  math: {
-    title: '📐 線形代数 / 統計',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">AIアルゴリズムの理論的基盤。線形代数（行列・ベクトル）はニューラルネットワークの計算に、統計（確率分布・仮説検定）はモデル評価に不可欠です。完璧に理解する必要はなく、「なんとなく分かる」レベルから始めましょう。</p>`
-  },
-  pytorch: {
-    title: '🔥 PyTorch / TensorFlow',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">深層学習モデルの構築・学習に使うフレームワーク。研究・開発ではPyTorchが主流、本番環境ではTensorFlowも多く使われます。まずはどちらか一方を習得しましょう。</p>
-    <p style="margin-top:12px;font-size:13px;color:var(--text-muted)"><strong style="color:var(--text)">推奨:</strong> PyTorchから始めるのがおすすめ（コミュニティが活発）</p>`
-  },
-  sql: {
-    title: '🗄️ SQL',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">データベースから学習データを抽出・加工するために必須のスキル。SELECT・JOIN・GROUP BY・サブクエリなどの基本操作を習得しましょう。</p>
-    <p style="margin-top:12px;font-size:13px;color:var(--text-muted)"><strong style="color:var(--text)">習得目安:</strong> 基本クエリまで2〜3週間</p>`
-  },
-  aws: {
-    title: '☁️ AWS / GCP / Azure',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">クラウド上でAIモデルを運用するために必要なスキル。AWSのSageMaker、GCPのVertex AI、AzureのML Studioなど、各プラットフォームのAI/MLサービスを習得します。</p>
-    <p style="margin-top:12px;font-size:13px;color:var(--text-muted)"><strong style="color:var(--text)">おすすめ:</strong> まずAWSから始めると案件が多い</p>`
-  },
-  docker: {
-    title: '🐳 Docker / Kubernetes',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">コンテナ技術を使って開発・本番環境を統一し、AIモデルを安定してデプロイするために必要なスキル。MLOps案件では必須とされることが多いです。</p>`
-  },
-  langchain: {
-    title: '🦜 LangChain / LlamaIndex',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">LLMを活用したアプリケーション開発を効率化するフレームワーク。チャットボット・RAGシステム・AIエージェントの構築に広く使われています。2025年最も需要の高いスキルの一つです。</p>`
-  },
-  rag: {
-    title: '🔍 RAG / ファインチューニング',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">RAG（Retrieval-Augmented Generation）は社内文書などの外部データをLLMに参照させる技術。ファインチューニングはLLMを特定ドメインに特化させる技術。高単価案件で特に求められるスキルです。</p>`
-  },
-  prompt: {
-    title: '✍️ プロンプトエンジニアリング',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">LLMから意図した通りの出力を引き出すためのプロンプト設計技術。Chain-of-Thought、Few-shot、System Promptの設計など、実務での活用に直結するスキルです。</p>`
-  },
-  mlops: {
-    title: '🔄 MLOps / CI/CD',
-    body: `<p style="color:var(--text-muted);font-size:14px;line-height:1.7">機械学習モデルの学習・テスト・デプロイを自動化するパイプラインの構築。MLflow・Kubeflow・GitHub Actionsなどのツールを使い、モデルのライフサイクルを管理します。</p>`
-  }
-};
-
-function showModal(key) {
-  const data = skillData[key];
-  if (!data) return;
-  document.getElementById('modalTitle').innerHTML = data.title;
-  document.getElementById('modalBody').innerHTML = data.body;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('open');
-  }
-}
-function closeModalDirect() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-
-// ===== TAB SWITCHING =====
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ===== NAV ACTIVE =====
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('nav ul li a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
   });
-  navLinks.forEach(a => {
-    a.classList.remove('active');
-    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.skill-item, .work-card, .stat-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
   });
-});
-
-// ===== FADE IN =====
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// ===== CHARTS =====
-Chart.defaults.color = '#94a3b8';
-Chart.defaults.borderColor = '#334155';
-
-// Age Chart
-new Chart(document.getElementById('ageChart'), {
-  type: 'bar',
-  data: {
-    labels: ['〜19歳', '20-24歳', '25-29歳', '30-34歳', '35-39歳', '40-44歳', '45-49歳', '50-54歳', '55-59歳'],
-    datasets: [{
-      label: '年収（万円）',
-      data: [287, 376, 466, 594, 614, 707, 773, 817, 831],
-      backgroundColor: (ctx) => {
-        const v = ctx.raw;
-        if (v >= 600) return 'rgba(79,70,229,0.8)';
-        if (v >= 500) return 'rgba(6,182,212,0.7)';
-        return 'rgba(100,116,139,0.5)';
-      },
-      borderRadius: 6,
-      borderSkipped: false,
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => `${ctx.raw}万円`
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        min: 200,
-        ticks: { callback: v => v + '万' }
-      }
-    }
-  }
-});
-
-// Job Chart
-new Chart(document.getElementById('jobChart'), {
-  type: 'bar',
-  data: {
-    labels: ['AIエンジニア', 'プログラマー', 'システムエンジニア', 'ソフトウェア開発者', '全国平均'],
-    datasets: [{
-      label: '平均年収（万円）',
-      data: [629, 574, 574, 574, 460],
-      backgroundColor: ['rgba(79,70,229,0.8)', 'rgba(6,182,212,0.6)', 'rgba(6,182,212,0.6)', 'rgba(6,182,212,0.6)', 'rgba(100,116,139,0.5)'],
-      borderRadius: 6,
-      borderSkipped: false,
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: ctx => `${ctx.raw}万円` } }
-    },
-    scales: {
-      x: {
-        beginAtZero: false,
-        min: 350,
-        ticks: { callback: v => v + '万' }
-      }
-    }
-  }
-});
-
-// Radar Chart
-new Chart(document.getElementById('radarChart'), {
-  type: 'radar',
-  data: {
-    labels: ['Python', 'LLM/生成AI', '機械学習', 'クラウド/MLOps', '数学/統計', 'ビジネス理解', 'コミュニケーション'],
-    datasets: [
-      {
-        label: '年収600万円レベル',
-        data: [80, 70, 75, 60, 65, 60, 65],
-        backgroundColor: 'rgba(79,70,229,0.2)',
-        borderColor: 'rgba(79,70,229,0.8)',
-        pointBackgroundColor: 'rgba(79,70,229,1)',
-      },
-      {
-        label: '年収1000万円レベル',
-        data: [95, 90, 90, 85, 80, 85, 80],
-        backgroundColor: 'rgba(6,182,212,0.15)',
-        borderColor: 'rgba(6,182,212,0.8)',
-        pointBackgroundColor: 'rgba(6,182,212,1)',
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      r: {
-        beginAtZero: true,
-        max: 100,
-        ticks: { stepSize: 20, display: false },
-        grid: { color: 'rgba(51,65,85,0.8)' },
-        angleLines: { color: 'rgba(51,65,85,0.8)' },
-        pointLabels: { font: { size: 11 } }
-      }
-    },
-    plugins: {
-      legend: { position: 'bottom', labels: { font: { size: 12 } } }
-    }
-  }
-});
-
-// Income Chart
-new Chart(document.getElementById('incomeChart'), {
-  type: 'bar',
-  data: {
-    labels: ['レベル1-2', 'レベル3', 'レベル4', 'レベル5+'],
-    datasets: [
-      {
-        label: '下限',
-        data: [420, 450, 500, 600],
-        backgroundColor: 'rgba(79,70,229,0.4)',
-        borderRadius: [0,0,6,6],
-        borderSkipped: false,
-      },
-      {
-        label: '上限',
-        data: [200, 250, 280, 350],
-        backgroundColor: 'rgba(79,70,229,0.8)',
-        borderRadius: [6,6,0,0],
-        borderSkipped: false,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => {
-            const ranges = ['420〜620万円', '450〜700万円', '500〜780万円', '600〜950万円'];
-            return ranges[ctx.dataIndex];
-          }
-        }
-      }
-    },
-    scales: {
-      x: { stacked: true },
-      y: {
-        stacked: true,
-        beginAtZero: false,
-        min: 350,
-        ticks: { callback: v => v + '万' }
-      }
-    }
-  }
-});
-
-// Experience Chart
-new Chart(document.getElementById('expChart'), {
-  type: 'line',
-  data: {
-    labels: ['〜1年', '1-4年', '5-9年', '10-14年', '15年以上'],
-    datasets: [{
-      label: '月額給与（万円）',
-      data: [28, 31, 37, 40, 48],
-      borderColor: 'rgba(6,182,212,1)',
-      backgroundColor: 'rgba(6,182,212,0.1)',
-      pointBackgroundColor: 'rgba(6,182,212,1)',
-      pointRadius: 6,
-      tension: 0.4,
-      fill: true,
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: ctx => `${ctx.raw}万円/月` } }
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        min: 20,
-        ticks: { callback: v => v + '万' }
-      }
-    }
-  }
-});
 </script>
 </body>
 </html>
